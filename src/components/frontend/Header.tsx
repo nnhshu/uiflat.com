@@ -2,14 +2,32 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import LoginModal from "@/components/modal/LoginModal";
 import SignupModal from "@/components/modal/SignupModal";
+import UserMenu from "./UserMenu";
 import { FiSearch } from "react-icons/fi";
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
 
+
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Header() {
-const [activeModal, setActiveModal] = useState<"login" | "signup" | null>(null);
+  const [activeModal, setActiveModal] = useState<"login" | "signup" | null>(null);
+  const { user, setUser } = useAuth();
+
+  const router = useRouter();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setUser(null);
+    toast.success("Logged out successfully!");
+    router.push('/');
+  };
 
   return (
     <>
@@ -25,12 +43,20 @@ const [activeModal, setActiveModal] = useState<"login" | "signup" | null>(null);
           />
         </div>
         <div className="flex items-center gap-2">
-          <Button
-            className="text-white border border-border rounded-4xl cursor-pointer h-11"
-            onClick={() => setActiveModal("login")}
-          >
-            Log in
-          </Button>
+          {user ? (
+            <UserMenu
+              user={user}
+              onLogout={handleLogout}
+            />
+          ) : (
+            <Button
+              className="text-white border border-border rounded-4xl cursor-pointer h-11"
+              onClick={() => setActiveModal("login")}
+            >
+              Log in
+            </Button>
+          )}
+          
         </div>
       </header>
 

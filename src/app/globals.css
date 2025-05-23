@@ -45,6 +45,7 @@
 
 :root {
   --radius: 0.625rem;
+  --border: #2F323C;
   --background: #141519;
   --bg-header: #1A1C21;
   --foreground: #2B2E37;

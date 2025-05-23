@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Google Login Callback</title>
+  <script>
+    function getParamsFromUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const obj = {};
+      for (const [key, value] of params.entries()) {
+        obj[key] = value;
+      }
+      return obj;
+    }
+
+    async function handleGoogleCallback() {
+      const params = getParamsFromUrl();
+
+      if (!params.code) {
+        window.close();
+        return;
+      }
+
+      // Gửi toàn bộ params về cửa sổ cha
+      if (window.opener) {
+        window.opener.postMessage({ type: "GOOGLE_CODE", params }, "*");
+      }
+
+      // Đóng popup
+      window.close();
+    }
+
+    window.onload = handleGoogleCallback;
+  </script>
+</head>
+<body>
+  <p>Đang xử lý đăng nhập Google...</p>
+</body>
+</html>

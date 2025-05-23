@@ -7,6 +7,7 @@ const config: Config = {
         primary: '#2A7BFF',
         secondary: '#BFBFC3',
         background: '#F9FAFB',
+        border: '#2F323C',
         foreground: '#111827',
         success: '#22C55E',
         warning: '#FACC15',
