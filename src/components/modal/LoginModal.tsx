@@ -45,7 +45,7 @@ export default function LoginModal({
 
   const handleGoogleLogin = () => {
     const client_id = GOOGLE_CLIENT_ID;
-    const redirect_uri = "http://localhost:3839/google-callback.html";
+    const redirect_uri = "https://uiflat.com/google-callback.html";
 
     const oauthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${client_id}&redirect_uri=${encodeURIComponent(
       redirect_uri
@@ -58,7 +58,7 @@ export default function LoginModal({
       if (event.data?.type === "GOOGLE_CODE") {
         const paramsObj = event.data.params;
         const params = new URLSearchParams(paramsObj);
-        params.append("callback", "http://localhost:3839/google-callback.html");
+        params.append("callback", "https://uiflat.com/google-callback.html");
 
         const url = `https://api.uiflat.com/v1/api/auth/google/callback?${params.toString()}`;
 
